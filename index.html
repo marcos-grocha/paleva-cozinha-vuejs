@@ -27,15 +27,22 @@
       <p><strong>Horário:</strong> {{ formatDate(selectedOrder.created_at) }}</p>
       <p><strong>Itens:</strong></p>
       
-      <div v-for="item in selectedOrder.order_items_details" :key="item.id">
+      <div v-for="item in selectedOrder.order_items_details" :key="item.id" class="order-item">
         <p v-if="item.dish_name"> 
-          <b>|</b> {{ item.dish_name }} <b>-</b> {{ item.portion_name }} x{{ item.quantity }} <b>|</b> {{ item.note }}
+          {{ item.dish_name }} - <b> {{ item.portion_name }} x{{ item.quantity }} |</b> {{ item.note }}
         </p>
         <p v-if="item.beverage_name"> 
-          <b>|</b> {{ item.beverage_name }} <b>-</b> {{ item.portion_name }} x{{ item.quantity }} <b>|</b> {{ item.note }}
+          {{ item.beverage_name }} - <b> {{ item.portion_name }} x{{ item.quantity }} |</b> {{ item.note }}
         </p>
       </div>
+
       <button class="back-button" @click="clearSelection">Voltar</button>
+      <button 
+        v-if="selectedOrder.status === 'waiting_confirmation'" 
+        @click="acceptOrder(selectedOrder)" 
+        class="accept-button">
+        Aceitar Pedido
+      </button>
     </div>
 
   </div>

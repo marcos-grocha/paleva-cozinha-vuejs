@@ -7,6 +7,7 @@ const app = Vue.createApp({
     };
   },
   methods: {
+
     async fetchPendingOrders() {
       try {
         const response = await fetch(
@@ -23,6 +24,7 @@ const app = Vue.createApp({
         console.error("Erro ao buscar pedidos:", error);
       }
     },
+
     formatDate(dateString) {
       const options = {
         day: "2-digit",
@@ -33,6 +35,7 @@ const app = Vue.createApp({
       };
       return new Date(dateString).toLocaleString("pt-BR", options);
     },
+
     async selectOrder(order) {
       try {
         const response = await fetch(
@@ -47,9 +50,32 @@ const app = Vue.createApp({
         console.error("Erro ao buscar detalhes do pedido:", error);
       }
     },
+
     clearSelection() {
       this.selectedOrder = null;
     },
+
+    async acceptOrder(order) {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/v1/establishments/${this.establishmentCode}/orders/${order.order_code}`,
+          {
+            method: "PATCH",
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Erro ao aceitar o pedido");
+        }
+
+        const updatedOrder = await response.json();
+        this.selectedOrder = updatedOrder;
+        alert("Pedido aceito com sucesso!");
+      } catch (error) {
+        console.error("Erro ao aceitar o pedido:", error);
+        alert("Erro ao aceitar o pedido. Tente novamente.");
+      }
+    },
+
   },
   created() {
     this.fetchPendingOrders();
