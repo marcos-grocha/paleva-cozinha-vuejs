@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PaLevá - Cozinha</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div id="app" class="main">
+    <h1>Pedidos Aguardando Início</h1>
+
+    <div v-if="!selectedOrder" class="order-list">
+      <div v-for="order in orders" :key="order.code" class="order-item" @click="selectOrder(order)">
+        <p><strong>Pedido # {{ order.order_code }}</strong></p>
+        <p>Cliente: {{ order.customer_name }}</p>
+        <p>Horário: {{ formatDate(order.created_at) }}</p>
+      </div>
+      <p v-if="orders.length === 0">Nenhum pedido pendente.</p>
+    </div>
+    
+    <div v-if="selectedOrder" class="order-details">
+      <h2>Detalhes do Pedido # {{ selectedOrder.order_code }}</h2>
+      <p><strong>Cliente:</strong> {{ selectedOrder.customer_name }}</p>
+      <p><strong>Status:</strong> {{ selectedOrder.status }}</p>
+      <p><strong>Horário:</strong> {{ formatDate(selectedOrder.created_at) }}</p>
+      <p><strong>Itens:</strong></p>
+      
+      <div v-for="item in selectedOrder.order_items_details" :key="item.id">
+        <p v-if="item.dish_name"> 
+          <b>|</b> {{ item.dish_name }} <b>-</b> {{ item.portion_name }} x{{ item.quantity }} <b>|</b> {{ item.note }}
+        </p>
+        <p v-if="item.beverage_name"> 
+          <b>|</b> {{ item.beverage_name }} <b>-</b> {{ item.portion_name }} x{{ item.quantity }} <b>|</b> {{ item.note }}
+        </p>
+      </div>
+      <button class="back-button" @click="clearSelection">Voltar</button>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy;<a href="https://www.linkedin.com/in/marcos-grocha/" target="_blank"> marcos-grocha</a></p>
+  </footer><br>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
