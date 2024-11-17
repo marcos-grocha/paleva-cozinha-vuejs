@@ -1,6 +1,28 @@
+header {
+  position: fixed; 
+  top: 0;
+  left: 0; 
+  width: 100%; 
+  text-align: center;
+  padding: 12px;
+  background-color: rgba(254, 254, 254, 0.75);
+  z-index: 1000;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: xx-large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+header img {
+  margin-right: 10px;
+}
+header span {
+  margin-left: 10px;
+}
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
+  padding-top: 85px;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -28,16 +50,29 @@ body {
   margin-top: 10px;
   padding: 5px 10px;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #0056b3;
   color: white;
   border: none;
   border-radius: 3px;
   margin: 3px;
 }
 .back-button:hover {
-  background-color: #0056b3;
+  background-color: #14213db3;
 }
 .accept-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  margin: 3px;
+}
+.accept-button:hover {
+  background-color: #fca211b9;
+}
+.ready-button {
   margin-top: 10px;
   padding: 5px 10px;
   cursor: pointer;
@@ -47,7 +82,7 @@ body {
   border-radius: 3px;
   margin: 3px;
 }
-.accept-button:hover {
+.ready-button:hover {
   background-color: #45a049;
 }
 .main {

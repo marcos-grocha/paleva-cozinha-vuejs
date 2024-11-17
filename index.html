@@ -4,26 +4,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PaLevá - Cozinha</title>
+  <link rel="shortcut icon" href="pa-leva-512x512.png" type="image/x-icon">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
+  <header>
+      <img src="pa-leva-512x512.png" alt="pa-leva" style="width: 70px;"> 
+      <span>Cozinha!</span>
+  </header>
   <div id="app" class="main">
-    <h1>Pedidos Aguardando Início</h1>
 
+    <h1>Pedidos Aguardando Início</h1>
     <div v-if="!selectedOrder" class="order-list">
-      <div v-for="order in orders" :key="order.code" class="order-item" @click="selectOrder(order)">
+      <div v-for="order in pendingOrders" :key="order.code" class="order-item" @click="selectOrder(order)">
         <p><strong>Pedido # {{ order.order_code }}</strong></p>
         <p>Cliente: {{ order.customer_name }}</p>
         <p>Horário: {{ formatDate(order.created_at) }}</p>
       </div>
-      <p v-if="orders.length === 0">Nenhum pedido pendente.</p>
+      <p v-if="pendingOrders.length === 0">Nenhum pedido pendente.</p>
+    </div><br>
+
+    <h1>Pedidos Em Preparo</h1>
+    <div v-if="!selectedOrder" class="order-list">
+      <div v-for="order in preparingOrders" :key="order.code" class="order-item" @click="selectOrder(order)">
+        <p><strong>Pedido # {{ order.order_code }}</strong></p>
+        <p>Cliente: {{ order.customer_name }}</p>
+        <p>Horário: {{ formatDate(order.created_at) }}</p>
+      </div>
+      <p v-if="preparingOrders.length === 0">Nenhum pedido em preparo.</p>
     </div>
     
     <div v-if="selectedOrder" class="order-details">
       <h2>Detalhes do Pedido # {{ selectedOrder.order_code }}</h2>
       <p><strong>Cliente:</strong> {{ selectedOrder.customer_name }}</p>
-      <p><strong>Status:</strong> {{ selectedOrder.status }}</p>
+      <p><strong>Status:</strong> {{ translateStatus(selectedOrder.status) }}</p>
       <p><strong>Horário:</strong> {{ formatDate(selectedOrder.created_at) }}</p>
       <p><strong>Itens:</strong></p>
       
@@ -36,12 +50,20 @@
         </p>
       </div>
 
-      <button class="back-button" @click="clearSelection">Voltar</button>
       <button 
-        v-if="selectedOrder.status === 'waiting_confirmation'" 
+        @click="clearSelection" 
+        class="back-button">
+        Voltar
+      </button>
+      <button v-if="selectedOrder.status === 'waiting_confirmation'" 
         @click="acceptOrder(selectedOrder)" 
         class="accept-button">
         Aceitar Pedido
+      </button>
+      <button v-if="selectedOrder.status === 'in_preparation'" 
+        @click="markAsReady(selectedOrder)" 
+        class="ready-button">
+        Marcar como Pronto
       </button>
     </div>
 

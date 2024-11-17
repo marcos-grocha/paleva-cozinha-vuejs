@@ -1,25 +1,46 @@
 const app = Vue.createApp({
   data() {
     return {
-      orders: [],
+      pendingOrders: [],
+      preparingOrders: [],
       selectedOrder: null,
       establishmentCode: "N9KN8J", // código do estabelecimento
     };
   },
   methods: {
+    translateStatus(status) {
+      const statusMap = {
+        waiting_confirmation: "Aguardando Confirmação",
+        in_preparation: "Em Preparo",
+        ready: "Pronto",
+      };
+      return statusMap[status] || status;
+    },
 
-    async fetchPendingOrders() {
+    async fetchOrders() {
       try {
-        const response = await fetch(
+        const responsePending = await fetch(
           `http://localhost:3000/api/v1/establishments/${this.establishmentCode}/orders?status=waiting_confirmation`
         );
-        if (!response.ok) {
+        if (!responsePending.ok) {
           throw new Error("Erro ao buscar os pedidos");
         }
-        const data = await response.json();
-        this.orders = data.sort(
+        const dataPending  = await responsePending.json();
+        this.pendingOrders = dataPending.sort(
           (a, b) => new Date(a.created_at) - new Date(b.created_at)
         );
+
+        const responsePreparing = await fetch(
+          `http://localhost:3000/api/v1/establishments/${this.establishmentCode}/orders?status=in_preparation`
+        );
+        if (!responsePreparing.ok) {
+          throw new Error("Erro ao buscar pedidos em preparo");
+        }
+        const dataPreparing = await responsePreparing.json();
+        this.preparingOrders = dataPreparing.sort(
+          (a, b) => new Date(a.created_at) - new Date(b.created_at)
+        );
+
       } catch (error) {
         console.error("Erro ao buscar pedidos:", error);
       }
@@ -53,6 +74,7 @@ const app = Vue.createApp({
 
     clearSelection() {
       this.selectedOrder = null;
+      this.fetchOrders();
     },
 
     async acceptOrder(order) {
@@ -76,9 +98,30 @@ const app = Vue.createApp({
       }
     },
 
+    async markAsReady(order) {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/v1/establishments/${this.establishmentCode}/orders/${order.order_code}`,
+          {
+            method: "PATCH",
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Erro ao marcar o pedido como pronto");
+        }
+
+        const updatedOrder = await response.json();
+        this.selectedOrder = updatedOrder;
+        alert("Pedido marcado como pronto!");
+      } catch (error) {
+        console.error("Erro ao marcar o pedido como pronto:", error);
+        alert("Erro ao marcar o pedido como pronto. Tente novamente.");
+      }
+    },
+
   },
   created() {
-    this.fetchPendingOrders();
+    this.fetchOrders();
   },
 });
 
