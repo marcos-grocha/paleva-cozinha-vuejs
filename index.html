@@ -4,17 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PaLevá - Cozinha</title>
-  <link rel="shortcut icon" href="pa-leva-512x512.png" type="image/x-icon">
+  <link rel="shortcut icon" href="pa-leva.png" type="image/x-icon">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
-      <img src="pa-leva-512x512.png" alt="pa-leva" style="width: 70px;"> 
+      <img src="pa-leva.png" alt="pa-leva" style="width: 70px;"> 
       <span>Cozinha!</span>
   </header>
   <div id="app" class="main">
 
-    <h1>Pedidos Aguardando Início</h1>
+    <h1>Aguardando Confirmação</h1>
     <div v-if="!selectedOrder" class="order-list">
       <div v-for="order in pendingOrders" :key="order.code" class="order-item" @click="selectOrder(order)">
         <p><strong>Pedido # {{ order.order_code }}</strong></p>
@@ -24,7 +24,7 @@
       <p v-if="pendingOrders.length === 0">Nenhum pedido pendente.</p>
     </div><br>
 
-    <h1>Pedidos Em Preparo</h1>
+    <h1>Em Preparo</h1>
     <div v-if="!selectedOrder" class="order-list">
       <div v-for="order in preparingOrders" :key="order.code" class="order-item" @click="selectOrder(order)">
         <p><strong>Pedido # {{ order.order_code }}</strong></p>
@@ -64,6 +64,11 @@
         @click="markAsReady(selectedOrder)" 
         class="ready-button">
         Marcar como Pronto
+      </button>
+      <button v-if="selectedOrder.status !== 'cancelled'"
+        @click="cancelOrder(selectedOrder)"
+        class="cancel-button">
+        Cancelar Pedido
       </button>
     </div>
 

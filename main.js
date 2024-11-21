@@ -119,6 +119,35 @@ const app = Vue.createApp({
       }
     },
 
+    async cancelOrder(order) {
+      const reason = prompt("Informe o motivo do cancelamento:");
+      if (!reason) {
+        alert("Motivo do cancelamento é obrigatório.");
+        return;
+      }
+    
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/v1/establishments/${this.establishmentCode}/orders/${order.order_code}/cancel`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ reason }),
+          }
+        );
+    
+        if (!response.ok) {
+          throw new Error("Erro ao cancelar o pedido");
+        }
+    
+        const updatedOrder = await response.json();
+        this.selectedOrder = updatedOrder;
+        alert("Pedido cancelado com sucesso!");
+      } catch (error) {
+        console.error("Erro ao cancelar o pedido:", error);
+        alert("Erro ao cancelar o pedido. Tente novamente.");
+      }
+    },
   },
   created() {
     this.fetchOrders();
