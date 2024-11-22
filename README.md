@@ -19,4 +19,4 @@ O **PaLevá - Cozinha** é um sistema simples para gestão de pedidos em um [PaL
 ### Pré-requisito
 - Um servidor local com a API de pedidos configurada: [PaLevá - Estabelecimento](https://github.com/marcos-grocha/paleva-app).
 
-*Caso esteja rodando o PaLevá - Estabelecimento na porta http://127.0.0.1:3000/, use outra porta para o PaLevá - Cozinha, exemplo: http://127.0.0.1:3001/*
+*Você pode rodar diretamente aqui: https://marcos-grocha.github.io/paleva-cozinha-vuejs/*
