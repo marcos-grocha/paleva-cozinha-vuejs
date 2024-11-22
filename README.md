@@ -21,4 +21,9 @@ O **PaLevá - Cozinha** é um sistema que gerencia de forma simples os pedidos d
 
 *Você pode rodar diretamente aqui: https://marcos-grocha.github.io/paleva-cozinha-vuejs/*
 
+---
+
+## Autor
+Desenvolvido por [Marcos Guimarães Rocha](https://www.linkedin.com/in/marcos-grocha/).
+
 ![PaLevá-Cozinha](https://github.com/marcos-grocha/paleva-app/blob/main/app/assets/images/Screenshot/PaLev%C3%A1%20-%20Cozinha%2001.png?raw=true)
