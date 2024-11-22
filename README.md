@@ -1,7 +1,7 @@
 # PaLevá - Cozinha
 
 ## Descrição
-O **PaLevá - Cozinha** é um sistema simples para gestão de pedidos em um [PaLevá - Estabelecimento](https://github.com/marcos-grocha/paleva-app). A aplicação permite visualizar e controlar os pedidos em diferentes status, possibilita ao usuário aceitar, marcar como pronto ou cancelar um pedido, facilitando o fluxo de trabalho na cozinha.
+O **PaLevá - Cozinha** é um sistema que gerencia de forma simples os pedidos de um [PaLevá - Estabelecimento](https://github.com/marcos-grocha/paleva-app). A aplicação permite visualizar e controlar os pedidos em diferentes status, possibilita ao usuário aceitar, marcar como pronto ou cancelar um pedido, facilitando o fluxo de trabalho na cozinha.
 
 ## Funcionalidades
 - Visualização de pedidos pendentes.
@@ -20,3 +20,5 @@ O **PaLevá - Cozinha** é um sistema simples para gestão de pedidos em um [PaL
 - Um servidor local com a API de pedidos configurada: [PaLevá - Estabelecimento](https://github.com/marcos-grocha/paleva-app).
 
 *Você pode rodar diretamente aqui: https://marcos-grocha.github.io/paleva-cozinha-vuejs/*
+
+![PaLevá-Cozinha](https://github.com/marcos-grocha/paleva-app/blob/main/app/assets/images/Screenshot/PaLev%C3%A1%20-%20Cozinha%2001.png?raw=true)
