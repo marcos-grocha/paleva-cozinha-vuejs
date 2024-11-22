@@ -14,22 +14,22 @@
   </header>
   <div id="app" class="main">
 
-    <h1>Aguardando Confirmação</h1>
     <div v-if="!selectedOrder" class="order-list">
+      <h1>Aguardando Confirmação</h1>
       <div v-for="order in pendingOrders" :key="order.code" class="order-item" @click="selectOrder(order)">
         <p><strong>Pedido # {{ order.order_code }}</strong></p>
         <p>Cliente: {{ order.customer_name }}</p>
-        <p>Horário: {{ formatDate(order.created_at) }}</p>
+        <p>Recebido: {{ formatDate(order.created_at) }}</p>
       </div>
       <p v-if="pendingOrders.length === 0">Nenhum pedido pendente.</p>
     </div><br>
 
-    <h1>Em Preparo</h1>
     <div v-if="!selectedOrder" class="order-list">
+      <h1>Em Preparo</h1>
       <div v-for="order in preparingOrders" :key="order.code" class="order-item" @click="selectOrder(order)">
         <p><strong>Pedido # {{ order.order_code }}</strong></p>
         <p>Cliente: {{ order.customer_name }}</p>
-        <p>Horário: {{ formatDate(order.created_at) }}</p>
+        <p>Recebido: {{ formatDate(order.created_at) }}</p>
       </div>
       <p v-if="preparingOrders.length === 0">Nenhum pedido em preparo.</p>
     </div>
@@ -38,7 +38,7 @@
       <h2>Detalhes do Pedido # {{ selectedOrder.order_code }}</h2>
       <p><strong>Cliente:</strong> {{ selectedOrder.customer_name }}</p>
       <p><strong>Status:</strong> {{ translateStatus(selectedOrder.status) }}</p>
-      <p><strong>Horário:</strong> {{ formatDate(selectedOrder.created_at) }}</p>
+      <p><strong>Recebido:</strong> {{ formatDate(selectedOrder.created_at) }}</p>
       <p><strong>Itens:</strong></p>
       
       <div v-for="item in selectedOrder.order_items_details" :key="item.id" class="order-item">
